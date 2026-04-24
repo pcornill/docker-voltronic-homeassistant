@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   voltronic-mqtt:
 
@@ -20,9 +18,10 @@ services:
     volumes:
         - ./config/:/etc/inverter/
 
-    devices:
-    #  - "/dev/mem:/dev/mem"
+    networks:
+      - mqtt_net
 
+    devices:
     # USB Port Mapping
       - /dev/bus/usb:/dev/bus/usb:rwm
       - /dev/ttyUSB0:/dev/ttyUSB0:rwm
@@ -33,18 +32,8 @@ services:
       - /dev/ttyS1:/dev/ttyS1
       - /dev/ttyS2:/dev/ttyS2
 
-  # Used to auto-update images as we release new versions...
-  #watchtower:
-    # Please see the following for configuration options:
-    #    https://containrrr.github.io/watchtower/container-selection/
-    #image: containrrr/watchtower
-    #container_name: watchtower
-
-    #restart: always
-    #privileged: true
-
-    #volumes:
-      #- /var/run/docker.sock:/var/run/docker.sock
-
+networks:
+   mqtt_net:
+     external: true
     #command: --interval 500
 
