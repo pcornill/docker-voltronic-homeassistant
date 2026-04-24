@@ -35,5 +35,3 @@ services:
 networks:
    mqtt_net:
      external: true
-    #command: --interval 500
-
