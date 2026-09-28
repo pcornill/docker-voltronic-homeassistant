@@ -9,11 +9,11 @@ MQTT_USERNAME=`cat /etc/inverter/mqtt.json | jq '.username' -r`
 MQTT_PASSWORD=`cat /etc/inverter/mqtt.json | jq '.password' -r`
 
 function subscribe () {
-    mosquitto_sub -h $MQTT_SERVER -p $MQTT_PORT -u "$MQTT_USERNAME" -P "$MQTT_PASSWORD" -i ""$MQTT_DEVICENAME"_"$MQTT_SERIAL"" -t "$MQTT_TOPIC/sensor/""$MQTT_DEVICENAME"_"$MQTT_SERIAL""/COMMANDS" -q 1
+    mosquitto_sub -h $MQTT_SERVER -p $MQTT_PORT -u "$MQTT_USERNAME" -P "$MQTT_PASSWORD" -i "${MQTT_DEVICENAME}_${MQTT_SERIAL}_sub" -t "$MQTT_TOPIC/sensor/""$MQTT_DEVICENAME"_"$MQTT_SERIAL""/COMMANDS" -q 1
 }
 
 function reply () {
-    mosquitto_pub -h $MQTT_SERVER -p $MQTT_PORT -u "$MQTT_USERNAME" -P "$MQTT_PASSWORD" -i ""$MQTT_DEVICENAME"_"$MQTT_SERIAL"" -t "$MQTT_TOPIC/sensor/""$MQTT_DEVICENAME"_"$MQTT_SERIAL""/COMMANDS" -q 1 -m "$*"
+    mosquitto_pub -h $MQTT_SERVER -p $MQTT_PORT -u "$MQTT_USERNAME" -P "$MQTT_PASSWORD" -i "${MQTT_DEVICENAME}_${MQTT_SERIAL}_reply" -t "$MQTT_TOPIC/sensor/""$MQTT_DEVICENAME"_"$MQTT_SERIAL""/COMMANDS/RESPONSE" -q 1 -m "$*"
 }
 
 subscribe | while read rawcmd; do
