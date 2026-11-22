@@ -1,4 +1,4 @@
-This is a fork from ned-kelly version with improved changes from  kchiem, dilyanpalauzov, nrm21 and many more:
+This is a fork from ned-kelly version with improved changes from  kchiem, dilyanpalauzov, nrm21 and many more like me :-)
 - no more needed fixes responses for QMOD, QPIRI... program it will find them.
 - changes regarding mqtt broker compatibility, topics, auto-discovery...
 - polling/transmit rate speed improved. now it transmit to HA almost every 10 seconds.
